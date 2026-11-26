@@ -1,0 +1,7 @@
+<ControlTemplate xmlns="urn:sunfleck:v1" xmlns:controls="urn:example:controls"
+                 Class="Example.RatingTemplate" Namespace="urn:example:controls" TargetType="controls:Rating">
+  <StackPanel Spacing="8">
+    <TextBlock Text="Rating"/>
+    <Slider Id="PART_Value" Value="{Binding Value, RelativeSource=TemplatedParent, Mode=TwoWay}"/>
+  </StackPanel>
+</ControlTemplate>

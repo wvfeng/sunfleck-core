@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [{
+    "name": "C++ 简单计数器",
+    "type": "cppvsdbg",
+    "request": "launch",
+    "preLaunchTask": "构建 C++ 计数器",
+    "program": "${workspaceFolder}/bin/Debug/CounterCpp.exe",
+    "cwd": "${workspaceFolder}",
+    "args": ["${workspaceFolder}/main.fleck"],
+    "console": "integratedTerminal",
+    "environment": [{ "name": "SUNFLECK_DEBUG_PIPE", "value": "sunfleck-counter-cpp" }]
+  }]
+}

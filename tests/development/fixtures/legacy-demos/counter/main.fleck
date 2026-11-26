@@ -1,0 +1,9 @@
+<Window xmlns="urn:sunfleck:v1" Model="CounterModel" Title="Sunfleck · 简单计数器" Width="560" Height="380">
+  <StackPanel Spacing="12" Padding="24">
+    <TextBlock Text="{Binding Caption}"/>
+    <TextBlock Id="syncCount" Text="{Binding SyncCount, StringFormat='同步次数：{0}'}"/>
+    <Button Id="sync" Content="同步 +1" Command="{Binding Increment}"/>
+    <TextBlock Id="asyncCount" Text="{Binding AsyncCount, StringFormat='异步次数：{0}'}"/>
+    <Button Id="async" Content="异步 +1（等待 100 毫秒）" Command="{Binding IncrementAsync}" CommandMode="Async"/>
+  </StackPanel>
+</Window>

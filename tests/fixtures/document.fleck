@@ -1,0 +1,3 @@
+<Window xmlns="urn:sunfleck:v1" Width="640" Height="480">
+  <Grid><DocumentView Id="article"/></Grid>
+</Window>

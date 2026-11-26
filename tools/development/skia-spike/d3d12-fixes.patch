@@ -1,0 +1,92 @@
+diff --git a/src/gpu/ganesh/d3d/GrD3DCommandList.cpp b/src/gpu/ganesh/d3d/GrD3DCommandList.cpp
+index 771b667..af8d030 100644
+--- a/src/gpu/ganesh/d3d/GrD3DCommandList.cpp
++++ b/src/gpu/ganesh/d3d/GrD3DCommandList.cpp
+@@ -480,6 +480,14 @@ void GrD3DDirectCommandList::clearDepthStencilView(const GrD3DAttachment* stenci
+                                         stencilClearValue, numRects, rect);
+ }
+ 
++void GrD3DDirectCommandList::discardResource(sk_sp<GrManagedResource> managedResource,
++                                          ID3D12Resource* resource) {
++    // Flush transitions before DiscardResource, and retain the allocation until completion.
++    this->addingWork();
++    this->addResource(std::move(managedResource));
++    fCommandList->DiscardResource(resource, nullptr);
++}
++
+ void GrD3DDirectCommandList::setRenderTarget(const GrD3DRenderTarget* renderTarget) {
+     this->addingWork();
+     this->addResource(renderTarget->resource());
+diff --git a/src/gpu/ganesh/d3d/GrD3DCommandList.h b/src/gpu/ganesh/d3d/GrD3DCommandList.h
+index f6a10e0..2f3bdf8 100644
+--- a/src/gpu/ganesh/d3d/GrD3DCommandList.h
++++ b/src/gpu/ganesh/d3d/GrD3DCommandList.h
+@@ -190,6 +190,7 @@ public:
+     void clearDepthStencilView(const GrD3DAttachment*,
+                                uint8_t stencilClearValue,
+                                const D3D12_RECT* rect);
++    void discardResource(sk_sp<GrManagedResource> managedResource, ID3D12Resource* resource);
+     void setRenderTarget(const GrD3DRenderTarget* renderTarget);
+     void resolveSubresourceRegion(const GrD3DTextureResource* dstTexture,
+                                   unsigned int dstX, unsigned int dstY,
+diff --git a/src/gpu/ganesh/d3d/GrD3DDescriptorHeap.cpp b/src/gpu/ganesh/d3d/GrD3DDescriptorHeap.cpp
+index 0a88a29..caba5ea 100644
+--- a/src/gpu/ganesh/d3d/GrD3DDescriptorHeap.cpp
++++ b/src/gpu/ganesh/d3d/GrD3DDescriptorHeap.cpp
+@@ -40,7 +40,11 @@ GrD3DDescriptorHeap::GrD3DDescriptorHeap(const gr_cp<ID3D12DescriptorHeap>& heap
+     , fHandleIncrementSize(handleIncrementSize)
+     , fUniqueID(GrD3DDescriptorHeapGenID()) {
+     fCPUHeapStart = fHeap->GetCPUDescriptorHandleForHeapStart();
+-    fGPUHeapStart = fHeap->GetGPUDescriptorHandleForHeapStart();
++    // CPU-only RTV/DSV and staging heaps have no GPU descriptor handle.
++    fGPUHeapStart = {};
++    if (fHeap->GetDesc().Flags & D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE) {
++        fGPUHeapStart = fHeap->GetGPUDescriptorHandleForHeapStart();
++    }
+ }
+ 
+ GrD3DDescriptorHeap::CPUHandle GrD3DDescriptorHeap::getCPUHandle(unsigned int index) {
+@@ -51,6 +55,7 @@ GrD3DDescriptorHeap::CPUHandle GrD3DDescriptorHeap::getCPUHandle(unsigned int in
+ }
+ 
+ GrD3DDescriptorHeap::GPUHandle GrD3DDescriptorHeap::getGPUHandle(unsigned int index) {
++    SkASSERT(fHeap->GetDesc().Flags & D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE);
+     SkASSERT(index < fHeap->GetDesc().NumDescriptors);
+     D3D12_GPU_DESCRIPTOR_HANDLE handle = fGPUHeapStart;
+     handle.ptr += index * fHandleIncrementSize;
+diff --git a/src/gpu/ganesh/d3d/GrD3DTextureResource.cpp b/src/gpu/ganesh/d3d/GrD3DTextureResource.cpp
+index 4c9569b..f437a1e 100644
+--- a/src/gpu/ganesh/d3d/GrD3DTextureResource.cpp
++++ b/src/gpu/ganesh/d3d/GrD3DTextureResource.cpp
+@@ -50,6 +50,31 @@ bool GrD3DTextureResource::InitTextureResourceInfo(GrD3DGpu* gpu, const D3D12_RE
+         return false;
+     }
+ 
++    // Placed RT/DS resources require an initializing operation before any draw or resolve.
++    // Initialize every new owned allocation, including scratch targets whose first pass loads.
++    // Wrapped resources never enter this path, and existing contents are never discarded here.
++    if (desc.Flags & (D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET |
++                      D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL)) {
++        sk_sp<Resource> resource(new Resource(info->fResource, info->fAlloc));
++        const D3D12_RESOURCE_STATES discardState =
++                (desc.Flags & D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL)
++                        ? D3D12_RESOURCE_STATE_DEPTH_WRITE : D3D12_RESOURCE_STATE_RENDER_TARGET;
++        D3D12_RESOURCE_TRANSITION_BARRIER barrier = {};
++        barrier.pResource = info->fResource.get();
++        barrier.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
++        barrier.StateBefore = initialState;
++        barrier.StateAfter = discardState;
++        if (initialState != discardState) {
++            gpu->addResourceBarriers(resource, 1, &barrier);
++        }
++        gpu->currentCommandList()->discardResource(resource, info->fResource.get());
++        if (initialState != discardState) {
++            barrier.StateBefore = discardState;
++            barrier.StateAfter = initialState;
++            gpu->addResourceBarriers(resource, 1, &barrier);
++        }
++    }
++
+     info->fResourceState = initialState;
+     info->fFormat = desc.Format;
+     info->fLevelCount = desc.MipLevels;

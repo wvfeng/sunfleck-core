@@ -1,0 +1,26 @@
+name: Web on configured Windows host
+# Explicit dispatch only: additional runner/browser environments are not enabled.
+on:
+  workflow_dispatch:
+jobs:
+  web:
+    runs-on: [self-hosted, Windows, X64, sunfleck-web]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install test dependencies
+        shell: pwsh
+        run: npm --prefix tests/web ci
+      - name: Build, publish and verify both hosts in Edge
+        shell: pwsh
+        run: |
+          python tools/web/api-inventory.py --check
+          python tests/web/tooling.py
+          ./tools/web/verify.ps1 -Complete -Font $env:SUNFLECK_WEB_FONT -EmsdkRoot $env:SUNFLECK_EMSDK -Dotnet $env:SUNFLECK_DOTNET
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: web-evidence
+          path: |
+            out/web-evidence/complete-*
+            out/web-evidence/suite-result.json

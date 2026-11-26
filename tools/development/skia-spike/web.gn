@@ -1,0 +1,47 @@
+is_official_build = true
+is_debug = false
+is_component_build = false
+target_cpu = "wasm"
+# Use the externally managed SDK; do not run Skia's permanent SDK activation.
+# Only static library targets are built, not the CanvasKit JS runtime.
+is_canvaskit = true
+is_trivial_abi = false
+# Match .NET's Wasm exception/setjmp ABI in both evaluation browser hosts.
+extra_cflags = [ "-fwasm-exceptions" ]
+skia_emsdk_dir = "C:/Users/Super/Documents/Sunfleck/.build-support/toolchains/emsdk"
+skia_enable_ganesh = true
+skia_enable_graphite = false
+skia_enable_pdf = false
+skia_enable_svg = false
+skia_enable_skottie = false
+skia_enable_tools = false
+skia_use_gl = true
+skia_use_webgl = true
+skia_use_webgpu = false
+skia_use_angle = false
+skia_use_egl = false
+skia_use_harfbuzz = true
+skia_use_system_harfbuzz = false
+skia_use_icu = true
+skia_use_system_icu = false
+skia_use_freetype = true
+skia_use_system_freetype2 = false
+# The current Emscripten port is FreeType 2.6.0. The isolated final hosts
+# link this pinned FreeType for BOTH Sunfleck and Skia, without USE_FREETYPE.
+skia_use_freetype_woff2 = false
+skia_enable_fontmgr_custom_directory = false
+skia_enable_fontmgr_custom_embedded = true
+skia_enable_fontmgr_custom_empty = false
+skia_use_fontconfig = false
+skia_use_expat = false
+skia_use_zlib = true
+skia_use_system_zlib = false
+skia_use_wuffs = false
+skia_use_libjpeg_turbo_decode = false
+skia_use_libjpeg_turbo_encode = false
+skia_use_libpng_decode = false
+skia_use_libpng_encode = false
+skia_use_system_libpng = false
+skia_use_libwebp_decode = false
+skia_use_libwebp_encode = false
+skia_use_xps = false

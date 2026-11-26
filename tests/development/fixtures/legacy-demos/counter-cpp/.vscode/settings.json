@@ -1,0 +1,14 @@
+{
+  "sunfleck.serverPath": "${workspaceFolder}/../../../../../out/windows-dev/service/Sunfleck.Development.dll",
+  "sunfleck.debugPipe": "sunfleck-counter-cpp",
+  "sunfleck.modelFiles": ["${workspaceFolder}/bin/Debug/CounterCpp.fleckmodel.json"],
+  "C_Cpp.default.compileCommands": "${workspaceFolder}/bin/Debug/compile_commands.json",
+  "cmake.useCMakePresets": "always",
+  "[fleck]": {
+    "editor.defaultFormatter": "sunfleck.sunfleck",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "files.exclude": { "**/bin": true }
+}

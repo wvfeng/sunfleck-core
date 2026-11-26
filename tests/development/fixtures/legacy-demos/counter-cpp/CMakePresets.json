@@ -1,0 +1,16 @@
+{
+  "version": 6,
+  "configurePresets": [{
+    "name": "debug",
+    "generator": "Ninja",
+    "binaryDir": "${sourceDir}/bin/Debug",
+    "cacheVariables": {
+      "CMAKE_BUILD_TYPE": "Debug",
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "BUILD_TESTING": "ON",
+      "UI_ENABLE_D3D11": "OFF"
+    }
+  }],
+  "buildPresets": [{ "name": "debug", "configurePreset": "debug", "jobs": 2 }],
+  "testPresets": [{ "name": "debug", "configurePreset": "debug", "output": { "outputOnFailure": true } }]
+}

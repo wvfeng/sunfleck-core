@@ -1,0 +1,12 @@
+{
+  "sunfleck.serverPath": "${workspaceFolder}/../../../../../out/windows-dev/service/Sunfleck.Development.dll",
+  "sunfleck.debugPipe": "sunfleck-counter",
+  "sunfleck.modelFiles": ["${workspaceFolder}/bin/Debug/net10.0/Counter.fleckmodel.json"],
+  "[fleck]": {
+    "editor.defaultFormatter": "sunfleck.sunfleck",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "files.exclude": { "**/bin": true, "**/obj": true }
+}

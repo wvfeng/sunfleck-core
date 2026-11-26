@@ -1,0 +1,6 @@
+{
+  "name": "sunfleck-web-tests",
+  "private": true,
+  "scripts": { "test": "node run.cjs", "smoke": "node smoke.cjs", "text": "node text-input.cjs", "workspace": "node workspace.cjs" },
+  "devDependencies": { "playwright-core": "1.56.1" }
+}

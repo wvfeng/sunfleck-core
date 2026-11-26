@@ -1,0 +1,6 @@
+<Window xmlns="urn:sunfleck:v1">
+  <StackPanel>
+    <TextBlock Id="count" Text="{Binding count}"/>
+    <Button Id="increment" Content="Increment" Command="{Binding increment}"/>
+  </StackPanel>
+</Window>

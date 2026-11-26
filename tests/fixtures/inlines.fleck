@@ -1,0 +1,11 @@
+<Window xmlns="urn:sunfleck:v1" Width="480" Height="360">
+  <StackPanel>
+    <TextBlock Id="paragraph" FontFamily="Segoe UI" FontSize="18" Width="260">
+      <Run Id="red" Text="Large red " FontSize="38" Foreground="#ffff0000"/>
+      <Span Id="span" Foreground="#ff0000ff" FontStyle="Italic">
+        <Run Id="blue" Text="blue text with enough words to wrap onto another line."/>
+      </Span>
+    </TextBlock>
+    <Button Id="next" Content="Next"/>
+  </StackPanel>
+</Window>

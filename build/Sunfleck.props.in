@@ -1,0 +1,21 @@
+<Project>
+  <PropertyGroup>
+    <SunfleckSdkRoot Condition="'$(SunfleckSdkRoot)' == ''">$(MSBuildThisFileDirectory)../../</SunfleckSdkRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Sunfleck">
+      <HintPath>$(SunfleckSdkRoot)/@CMAKE_INSTALL_LIBDIR@/net10.0/Sunfleck.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <None Include="$(SunfleckSdkRoot)/@CMAKE_INSTALL_BINDIR@/sunfleck_native.dll" Condition="$([MSBuild]::IsOSPlatform('Windows'))"
+          Link="sunfleck_native.dll" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="$(SunfleckSdkRoot)/@CMAKE_INSTALL_LIBDIR@/libsunfleck_native.so" Condition="$([MSBuild]::IsOSPlatform('Linux'))"
+          Link="libsunfleck_native.so" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="$(SunfleckSdkRoot)/@CMAKE_INSTALL_LIBDIR@/libsunfleck_native.dylib" Condition="$([MSBuild]::IsOSPlatform('OSX'))"
+          Link="libsunfleck_native.dylib" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <PropertyGroup>
+    <SunfleckComponentGeneratorAssembly>$(SunfleckSdkRoot)/@CMAKE_INSTALL_LIBDIR@/sunfleck/components/Sunfleck.ComponentGenerator.dll</SunfleckComponentGeneratorAssembly>
+  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)Sunfleck.Components.targets" Condition="'$(SunfleckEnableComponents)' == 'true'" />
+</Project>

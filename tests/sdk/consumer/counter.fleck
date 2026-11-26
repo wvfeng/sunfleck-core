@@ -1,0 +1,14 @@
+<Window xmlns="urn:sunfleck:v1" Model="Counter">
+  <Border FontFamily="Consolas" FontSize="23.5" FontWeight="Bold" FontStyle="Italic" FontStretch="Normal" Visibility="Visible" IsHitTestVisible="true" Background="#eef4ff" BorderBrush="#3468ac" BorderThickness="1,2,3,4" CornerRadius="8" Padding="6">
+  <StackPanel>
+    <StackPanel.CommandBindings>
+      <CommandBinding Command="IncrementCount" Executed="{Binding Increment}"/>
+    </StackPanel.CommandBindings>
+    <StackPanel.InputBindings>
+      <KeyBinding Gesture="F8" Phase="Preview" Command="IncrementCount"/>
+    </StackPanel.InputBindings>
+    <TextBlock Id="count" Text="{Binding Count}" Foreground="#80224466" TextAlignment="Center" TextWrapping="NoWrap" TextTrimming="WordEllipsis" LineHeight="32" TextDecorations="Underline,Strikethrough" FlowDirection="RightToLeft"/>
+    <Button Content="Increment" Command="{Binding Increment}"/>
+  </StackPanel>
+  </Border>
+</Window>

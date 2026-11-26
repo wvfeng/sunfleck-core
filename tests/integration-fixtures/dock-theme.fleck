@@ -1,0 +1,13 @@
+<Theme Base="Radix" Dark="true">
+  <Resource Key="custom.header" Value="#25374a"/>
+  <DockTemplate Part="Title">
+    <Stack Role="Drag" Background="custom.header" Padding="2">
+      <Text Text="{Title}" Foreground="text" Padding="6"/>
+      <Button Role="Menu" Text="v" Width="28" Foreground="text"/>
+      <Button Role="Close" Text="X" Width="28" Foreground="text"/>
+    </Stack>
+  </DockTemplate>
+  <DockTemplate Part="Tab" State="Hover">
+    <Fill Background="selected" Radius="4"><Text Text="{Title}" Foreground="text" Padding="6"/></Fill>
+  </DockTemplate>
+</Theme>

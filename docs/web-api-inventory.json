@@ -1,0 +1,2140 @@
+{
+  "version": 1,
+  "meaning": "Covered means used by the hosted path or representative acceptance, not exhaustive parameters/control parity. Missing interop is not proof of unsupported C ABI.",
+  "apis": [
+    {
+      "c": "ui_api_version",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_activate_button",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_apply_theme",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_app_attach_fleck_source_map",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_build_fleck",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_build_fleck_with_context",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_build_fleck_with_model",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_cancel_commands",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_app_create",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_create_window",
+      "status": "unsupported-operation",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Window.cs"
+      ]
+    },
+    {
+      "c": "ui_app_destroy",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_discard_fleck_page",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_dispatch_diagnostics",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_enable_debug_server",
+      "status": "unsupported-operation",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_find_debug_node",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_find_fleck_node",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_font_family",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Fonts.cs"
+      ]
+    },
+    {
+      "c": "ui_app_font_family_count",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Fonts.cs"
+      ]
+    },
+    {
+      "c": "ui_app_get_binding_diagnostics",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_get_current_window",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Window.cs"
+      ]
+    },
+    {
+      "c": "ui_app_get_debug_snapshot",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_get_fleck_refresh_status",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_get_fleck_root",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_has_component_type",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_load_fleck",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_load_fleck_resource",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_load_fleck_resource_with_context",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_load_fleck_resource_with_model",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_app_load_fleck_with_context",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_load_fleck_with_model",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/fleck_page.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_app_load_fleck_with_resources",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_load_theme",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_app_open_window",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_pixels",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_poll",
+      "status": "poll-zero-only",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_post",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/BrowserCallbacks.cs",
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_app_post_cancellable",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_queue_fleck_refresh",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_queue_fleck_refresh_with_resources",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_refresh_fleck",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_register_component_manifest",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_register_component_resource",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_register_component_type",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_register_dock_skin",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/BrowserCallbacks.cs",
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_app_register_fleck_resources",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_register_font",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Fonts.cs"
+      ]
+    },
+    {
+      "c": "ui_app_request_close",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_run",
+      "status": "unsupported-operation",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_set_builtin_theme",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_set_debug_highlight",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_set_debug_picking",
+      "status": "unsupported-operation",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_set_diagnostic_callback",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_set_diagnostic_log_callback",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_set_fleck_refresh_state_callback",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_set_fleck_source_uri",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_app_set_gallery",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_set_gallery_image",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_app_set_root",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_set_style",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_set_theme",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_set_window_options",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_app_unregister_font",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Fonts.cs"
+      ]
+    },
+    {
+      "c": "ui_app_validate_fleck",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_builtin_theme_name",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_cancellation_requested",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_command_cancel",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_command_create",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/BrowserCallbacks.cs",
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_command_create_async",
+      "status": "worker-execution-unsupported",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_command_create_external",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/BrowserAsyncCommands.cs"
+      ]
+    },
+    {
+      "c": "ui_command_destroy",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_command_is_running",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_completion_complete",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/BrowserAsyncCommands.cs"
+      ]
+    },
+    {
+      "c": "ui_completion_release",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/BrowserAsyncCommands.cs"
+      ]
+    },
+    {
+      "c": "ui_component_apply_template",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_bind_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_clear_data_context",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_clear_property_layer",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_component_create",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_describe_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_component_find_node",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_find_template_part",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_get_base_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_component_get_data_context",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_get_node",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_get_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_get_property_source",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_component_get_state",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_raise",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_set_data_context",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_set_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_set_property_layer",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_component_set_state",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_subscribe",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_subscribe_scoped",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_subscription_destroy",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_component_unsubscribe",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_dock_activate",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_auto_hide",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_capture_default",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_close",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_create",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_find",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_float",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_get_id",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_get_state",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_get_windows",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_hide",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_item_get_debug_id",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_move",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_move_group",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_pin",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_pixels",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_pointer",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_register",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_reset",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_restore",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_save",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_set_event",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/BrowserCallbacks.cs",
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_set_icon",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_set_title",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_dock_show",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/dock.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_document_get_scroll",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DocumentView.cs"
+      ]
+    },
+    {
+      "c": "ui_document_load",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DocumentView.cs"
+      ]
+    },
+    {
+      "c": "ui_document_scroll_horizontal",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DocumentView.cs"
+      ]
+    },
+    {
+      "c": "ui_document_scroll_to",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DocumentView.cs"
+      ]
+    },
+    {
+      "c": "ui_document_select_all",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DocumentView.cs"
+      ]
+    },
+    {
+      "c": "ui_document_selection",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DocumentView.cs"
+      ]
+    },
+    {
+      "c": "ui_document_set_font",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DocumentView.cs"
+      ]
+    },
+    {
+      "c": "ui_document_set_scroll",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DocumentView.cs"
+      ]
+    },
+    {
+      "c": "ui_document_take_event",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/DocumentView.cs"
+      ]
+    },
+    {
+      "c": "ui_draw_fill",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_draw_image",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_draw_pop_clip",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_draw_push_clip",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_draw_stroke",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_draw_text",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/DockNative.cs"
+      ]
+    },
+    {
+      "c": "ui_fleck_add_binding",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_fleck_add_node",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_fleck_get_schema",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_fleck_require_version",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_fleck_set_command_mode",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_fleck_set_dock_icon",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_fleck_set_dock_options",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_fleck_set_enabled",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_fleck_validate",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_host_capabilities",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_context_menu",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_draw_commands",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_focus",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_key_event",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_pixels",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_pointer",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_resize",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_scroll",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_select_view",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_semantic_action",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_set_font",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_host_set_render_mode",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_snapshot",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_text_hit_test",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_text_preview",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_text_read",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_text_scroll",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_host_text_update",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/HostedSurface.cs"
+      ]
+    },
+    {
+      "c": "ui_model_add_command",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_model_add_properties",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_model_add_property",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/BrowserProperties.cs",
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_model_add_text_source",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_model_begin_update",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_model_create",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_model_describe",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_model_destroy",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_model_end_update",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_model_is_running",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_model_notify_property_changed",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_model_set_command_modes",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_model_set_property_source",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_node_append",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_bind_command",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_bind_context_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_bind_property",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_bind_registered_context_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/RegisteredProperties.cs"
+      ]
+    },
+    {
+      "c": "ui_node_bind_registered_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/RegisteredProperties.cs"
+      ]
+    },
+    {
+      "c": "ui_node_bind_text",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_clear_binding",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_clear_data_context",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_clear_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_node_clear_property_layer",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_node_clear_registered_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/RegisteredProperties.cs"
+      ]
+    },
+    {
+      "c": "ui_node_complete_action",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_create",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_defer_action",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_describe_registered_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/RegisteredProperties.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_base_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_component",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/components.hpp"
+      ],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_node_get_data_context",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_data_context_source",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_debug_id",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Development.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_enabled",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_height",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_layout_value",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_property_source",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_registered_base_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/RegisteredProperties.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_registered_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/RegisteredProperties.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_registered_property_source",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/RegisteredProperties.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_text",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_get_value",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_resolve_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/RegisteredProperties.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_action",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_node_set_action_with_concurrency",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/BrowserCallbacks.cs",
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_anchor",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_command_mode",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_data_context",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_dock",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_enabled",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_height",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_image",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_items",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_layout",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_layout_value",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_property_layer",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_registered_property",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/RegisteredProperties.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_text",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_theme_color",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": []
+    },
+    {
+      "c": "ui_node_set_value",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_set_weight",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_node_update_source",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyNative.cs"
+      ]
+    },
+    {
+      "c": "ui_property_describe",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertySystem.cs"
+      ]
+    },
+    {
+      "c": "ui_text_source_create",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_text_source_destroy",
+      "status": "hosted-covered",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_text_source_set",
+      "status": "hosted-covered",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_theme_apply_overrides",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_theme_init",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [],
+      "csharpInterop": [
+        "bindings/csharp/Native.cs"
+      ]
+    },
+    {
+      "c": "ui_value_parse",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/property_model.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/PropertyValues.cs"
+      ]
+    },
+    {
+      "c": "ui_window_get_id",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Window.cs"
+      ]
+    },
+    {
+      "c": "ui_window_invoke",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Window.cs"
+      ]
+    },
+    {
+      "c": "ui_window_request_close",
+      "status": "not-in-web-acceptance",
+      "cppWrappers": [
+        "include/sunfleck/ui.hpp"
+      ],
+      "csharpInterop": [
+        "bindings/csharp/Window.cs"
+      ]
+    }
+  ]
+}

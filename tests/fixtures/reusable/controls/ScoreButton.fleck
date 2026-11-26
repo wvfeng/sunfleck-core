@@ -1,0 +1,38 @@
+<ControlTemplate xmlns="urn:sunfleck:v1" Class="Example.ScoreButton"
+                 Namespace="urn:example:controls" TargetType="Button">
+  <Border Padding="8" CornerRadius="4" BorderThickness="1" BorderBrush="#507AA8" Background="#EDF3FA">
+    <Border.VisualStateGroups>
+      <VisualStateGroup Name="CommonStates">
+        <VisualState Name="Normal"/>
+        <VisualState Name="MouseOver">
+          <Storyboard>
+            <Timeline Property="Background" DurationMs="100" HoldEnd="true">
+              <KeyFrame Position="0" Value="#EDF3FA"/>
+              <KeyFrame Position="1" Value="#DCEAF8"/>
+            </Timeline>
+          </Storyboard>
+        </VisualState>
+        <VisualState Name="Pressed">
+          <Storyboard>
+            <Timeline Property="Background" DurationMs="60" HoldEnd="true">
+              <KeyFrame Position="0" Value="#DCEAF8"/>
+              <KeyFrame Position="1" Value="#BDD5EE"/>
+            </Timeline>
+          </Storyboard>
+        </VisualState>
+      </VisualStateGroup>
+      <VisualStateGroup Name="FocusStates">
+        <VisualState Name="Unfocused"/>
+        <VisualState Name="Focused">
+          <Storyboard>
+            <Timeline Property="BorderBrush" DurationMs="100" HoldEnd="true">
+              <KeyFrame Position="0" Value="#507AA8"/>
+              <KeyFrame Position="1" Value="#124A92"/>
+            </Timeline>
+          </Storyboard>
+        </VisualState>
+      </VisualStateGroup>
+    </Border.VisualStateGroups>
+    <ContentPresenter/>
+  </Border>
+</ControlTemplate>

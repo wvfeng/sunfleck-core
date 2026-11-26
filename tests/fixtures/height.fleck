@@ -1,0 +1,9 @@
+<Window xmlns="urn:sunfleck:v1" Width="320" Height="240" Model="HeightModel">
+  <StackPanel Spacing="0" Id="root">
+    <TextBlock Id="short" Text="Score" Height="10"/>
+    <TextBlock Id="auto" Text="Automatic"/>
+    <Grid Id="row" Height="40"><TextBlock Id="inside" Height="12"/></Grid>
+    <TextBlock Id="zero" Height="0"/>
+    <TextBlock Id="last" Height="20" Width="100" MinWidth="80" MaxWidth="120" MinHeight="10" MaxHeight="30" Margin="2,3,4,5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+  </StackPanel>
+</Window>

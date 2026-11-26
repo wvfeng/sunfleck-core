@@ -1,0 +1,17 @@
+<Window xmlns="urn:sunfleck:v1" Model="BindingTestModel" Title="Property binding" Width="480" Height="560">
+  <StackPanel Spacing="8" Padding="12">
+    <Button Id="increment" Content="{Binding caption, Mode=OneWay}" IsEnabled="{Binding enabled}" Command="{Binding increment}" CommandMode="Async"/>
+    <TextBlock Id="count" Text="{Binding count, StringFormat='Count: {0}'}"/>
+    <TextBlock Id="other" Text="{Binding Path=count, StringFormat='Total, {0}'}"/>
+    <TextBlock Id="snapshot" Text="{Binding count, Mode=OneTime}"/>
+    <TextBox Id="editor" Text="{Binding name}"/>
+    <TextBlock Id="name" Text="{Binding name}"/>
+    <TextBox Id="deferred" Text="{Binding name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+    <Slider Id="slider" Value="{Binding volume}"/>
+    <ProgressBar Id="progress" Value="{Binding volume}"/>
+    <Switch Id="switch" Value="{Binding enabled}"/>
+    <Button Id="literal" Content="{}{Binding caption}"/>
+    <TextBox Id="field" Text="{Binding details.directField}"/>
+    <TextBlock Id="twice" Text="{Binding count, Converter=Twice}"/>
+  </StackPanel>
+</Window>

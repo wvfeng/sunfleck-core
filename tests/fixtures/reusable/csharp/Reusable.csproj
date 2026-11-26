@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0</TargetFramework><OutputType>Exe</OutputType><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../../bindings/csharp/Sunfleck.csproj" />
+    <ProjectReference Include="../library/Reusable.Controls.csproj" />
+    <EmbeddedResource Include="../main.fleck" LogicalName="Main.fleck" />
+  </ItemGroup>
+  <Import Project="../../../../build/Sunfleck.Components.targets" />
+</Project>

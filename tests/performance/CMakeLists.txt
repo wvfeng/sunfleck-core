@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.25)
+project(SunfleckBaseline LANGUAGES CXX)
+find_package(Sunfleck CONFIG REQUIRED)
+add_executable(sunfleck_baseline baseline.cpp)
+target_link_libraries(sunfleck_baseline PRIVATE Sunfleck::sunfleck)
+if(WIN32)
+  target_link_libraries(sunfleck_baseline PRIVATE psapi)
+endif()

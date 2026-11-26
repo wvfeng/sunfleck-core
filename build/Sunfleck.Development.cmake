@@ -1,0 +1,118 @@
+include_guard(GLOBAL)
+
+# Compile a page and its component dependencies with an optional source sidecar.
+# Usage: sunfleck_compile_page(page_resources INPUT page.fleck OUTPUT page.flkb FORMAT binary)
+function(sunfleck_compile_page name)
+  cmake_parse_arguments(PAGE "" "INPUT;OUTPUT;FORMAT;SYMBOL" "TYPES;RESOURCES;RESOURCE_DIRECTORIES;COMPONENT_LIBRARIES" ${ARGN})
+  if(NOT PAGE_INPUT OR NOT PAGE_OUTPUT)
+    message(FATAL_ERROR "sunfleck_compile_page requires INPUT and OUTPUT")
+  endif()
+  if(NOT PAGE_FORMAT)
+    set(PAGE_FORMAT binary)
+  endif()
+  if(NOT PAGE_SYMBOL)
+    set(PAGE_SYMBOL load_fleck)
+  endif()
+  set(page_symbol_args)
+  if(NOT PAGE_FORMAT STREQUAL "binary")
+    list(APPEND page_symbol_args --symbol "${PAGE_SYMBOL}")
+  endif()
+  get_filename_component(page_input "${PAGE_INPUT}" ABSOLUTE BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+  get_filename_component(page_output "${PAGE_OUTPUT}" ABSOLUTE BASE_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+  get_filename_component(page_directory "${page_output}" DIRECTORY)
+  if(TARGET Sunfleck::fleckc)
+    set(page_compiler Sunfleck::fleckc)
+  elseif(TARGET fleckc)
+    set(page_compiler fleckc)
+  else()
+    message(FATAL_ERROR "Page generation requires the Sunfleck fleckc tool")
+  endif()
+  get_filename_component(page_source_directory "${page_input}" DIRECTORY)
+  set(component_args)
+  set(component_libraries ${PAGE_COMPONENT_LIBRARIES})
+  set(visited_libraries)
+  while(component_libraries)
+    list(POP_FRONT component_libraries library)
+    if(library IN_LIST visited_libraries)
+      continue()
+    endif()
+    if(NOT TARGET "${library}")
+      message(FATAL_ERROR "Unknown Fleck component library: ${library}")
+    endif()
+    list(APPEND visited_libraries "${library}")
+    foreach(property IN ITEMS RESOURCES RESOURCE_DIRECTORIES TYPES)
+      get_target_property(values "${library}" SUNFLECK_COMPONENT_${property})
+      if(values)
+        list(APPEND PAGE_${property} ${values})
+      endif()
+    endforeach()
+    get_target_property(dependencies "${library}" SUNFLECK_COMPONENT_LIBRARIES)
+    if(dependencies)
+      list(APPEND component_libraries ${dependencies})
+    endif()
+  endwhile()
+  set(component_dependencies ${PAGE_RESOURCES})
+  foreach(directory IN ITEMS "${page_source_directory}" ${PAGE_RESOURCE_DIRECTORIES})
+    file(GLOB_RECURSE component_files CONFIGURE_DEPENDS "${directory}/*.fleck")
+    list(APPEND component_dependencies ${component_files})
+    list(APPEND component_args --resource-directory "${directory}")
+  endforeach()
+  foreach(resource IN LISTS PAGE_RESOURCES)
+    list(APPEND component_args --resource "${resource}")
+  endforeach()
+  list(REMOVE_DUPLICATES PAGE_TYPES)
+  foreach(metadata IN LISTS PAGE_TYPES)
+    list(APPEND component_args --types "${metadata}")
+    list(APPEND component_dependencies "${metadata}")
+  endforeach()
+  add_custom_command(OUTPUT "${page_output}" "${page_output}.fleckmap"
+    COMMAND "${CMAKE_COMMAND}" -E make_directory "${page_directory}"
+    COMMAND $<TARGET_FILE:${page_compiler}> --format "${PAGE_FORMAT}" ${page_symbol_args}
+      --source-map "${page_output}.fleckmap" --depfile "${page_output}.d" ${component_args} "${page_input}" "${page_output}"
+    DEPFILE "${page_output}.d"
+    DEPENDS ${page_compiler} "${page_input}" ${component_dependencies} VERBATIM)
+  add_custom_target(${name} DEPENDS "${page_output}" "${page_output}.fleckmap")
+endfunction()
+
+# The exporter is a dedicated executable that accepts its output path as the first argument.
+# It registers the application's shared property declarations and calls ui_model_describe;
+# it must not construct a window or call business getters.
+function(sunfleck_add_model_metadata name)
+  cmake_parse_arguments(MODEL "" "EXPORTER;OUTPUT" "ARGS" ${ARGN})
+  if(NOT MODEL_EXPORTER OR NOT MODEL_OUTPUT OR NOT TARGET "${MODEL_EXPORTER}")
+    message(FATAL_ERROR "sunfleck_add_model_metadata requires an EXPORTER target and OUTPUT")
+  endif()
+  get_filename_component(model_output "${MODEL_OUTPUT}" ABSOLUTE BASE_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+  get_filename_component(model_directory "${model_output}" DIRECTORY)
+  add_custom_command(OUTPUT "${model_output}"
+    COMMAND "${CMAKE_COMMAND}" -E make_directory "${model_directory}"
+    COMMAND "${MODEL_EXPORTER}" "${model_output}" ${MODEL_ARGS}
+    DEPENDS "${MODEL_EXPORTER}" VERBATIM)
+  add_custom_target(${name} ALL DEPENDS "${model_output}")
+endfunction()
+
+# Attach declarative resources/metadata to a target; callers still link its behavior code.
+# A declaration-only exporter shares ui_component_type descriptors with runtime code.
+# It must not instantiate controls or invoke business code. This also works with
+# an emulator-configured target when cross compiling.
+function(sunfleck_add_component_metadata name)
+  sunfleck_add_model_metadata(${name} ${ARGN})
+endfunction()
+
+# Attach declarative resources/metadata to a target; callers still link its behavior code.
+# Component library dependencies are traversed by sunfleck_compile_page.
+function(sunfleck_component_library target)
+  cmake_parse_arguments(LIB "" "" "RESOURCES;RESOURCE_DIRECTORIES;TYPES;COMPONENT_LIBRARIES" ${ARGN})
+  if(NOT TARGET "${target}")
+    add_library(${target} INTERFACE)
+  endif()
+  foreach(property IN ITEMS RESOURCES RESOURCE_DIRECTORIES TYPES)
+    set(paths)
+    foreach(path IN LISTS LIB_${property})
+      get_filename_component(absolute "${path}" ABSOLUTE BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+      list(APPEND paths "${absolute}")
+    endforeach()
+    set_property(TARGET ${target} PROPERTY SUNFLECK_COMPONENT_${property} "${paths}")
+  endforeach()
+  set_property(TARGET ${target} PROPERTY SUNFLECK_COMPONENT_LIBRARIES "${LIB_COMPONENT_LIBRARIES}")
+endfunction()

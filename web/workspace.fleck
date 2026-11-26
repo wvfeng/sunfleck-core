@@ -1,0 +1,36 @@
+<Window xmlns="urn:sunfleck:v1" Title="Web workspace" Width="860" Height="580">
+  <DockPanel Spacing="8" Padding="8">
+    <ToolBar Dock="Top">
+      <Button Id="float" Text="Float document"/>
+      <Button Id="resetDock" Text="Reset workspace"/>
+      <Button Text="Load message" Command="{Binding Network}" CommandMode="Async"/>
+      <Button Text="Cancel request" Command="{Binding CancelNetwork}"/>
+    </ToolBar>
+    <TextBlock Dock="Bottom" Text="{Binding NetworkStatus}"/>
+    <DockHost Id="workspace">
+      <DockSplit Orientation="Horizontal" Ratio="45">
+        <DockGroup>
+          <DockTool Id="controls" Title="Controls">
+            <ScrollView><StackPanel Spacing="12" Padding="8">
+              <SearchBox Id="search" Text="Search here"/>
+              <CheckBox Text="Enable option"/>
+              <Switch Text="Dark option"/>
+              <Slider Value="35"/>
+              <ListView><ListItem Text="First item"/><ListItem Text="Second item"/></ListView>
+              <TreeView><TreeItem Text="Folder"><TreeItem Text="Child"/></TreeItem></TreeView>
+              <Button Text="Scroll marker 1"/><Button Text="Scroll marker 2"/>
+              <Button Text="Scroll marker 3"/><Button Text="Scroll marker 4"/>
+              <Button Text="Scroll marker 5"/><Button Text="Scroll marker 6"/>
+              <Button Text="Scroll marker 7"/><Button Text="Scroll marker 8"/>
+              <Button Text="Scroll marker 9"/><Button Text="Scroll marker 10"/>
+            </StackPanel></ScrollView>
+          </DockTool>
+        </DockGroup>
+        <DockGroup>
+          <DockDocument Id="document" Title="Document"><TextArea Id="documentText" Text="中文文档 — float this panel and continue editing."/></DockDocument>
+          <DockDocument Id="second" Title="Second document"><TextArea Id="secondText" Text="Second document"/></DockDocument>
+        </DockGroup>
+      </DockSplit>
+    </DockHost>
+  </DockPanel>
+</Window>

@@ -1,0 +1,7 @@
+<Window xmlns="urn:sunfleck:v1" Model="DevelopmentModel" Title="中文 🌱">
+  <StackPanel Id="root" Padding="3">
+    <TextBlock Id="label" Text="{Binding Name}"/>
+    <TextBox Id="editor" Text="{Binding Name, UpdateSourceTrigger=LostFocus}"/>
+    <Button Id="once" Content="{Binding Name, Mode=OneTime}"/>
+  </StackPanel>
+</Window>

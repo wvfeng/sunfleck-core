@@ -1,0 +1,169 @@
+name: Publish SDK
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sdk-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  windows:
+    if: ${{ !github.event.deleted }}
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v4
+        env:
+          DOTNET_INSTALL_DIR: ${{ runner.temp }}/sunfleck-dotnet
+        with:
+          dotnet-version: '10.0.x'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Package the Windows SDK
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          ./tools/sdk/validate.ps1 -OutputDirectory out/release-windows/evidence
+          python tools/sdk/package.py out/release-windows/candidate --evidence out/release-windows/evidence
+          Move-Item -LiteralPath out/release-windows/candidate/sdk.zip -Destination out/release-windows/Sunfleck-SDK-windows-x64.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdk-windows-x64
+          path: |
+            out/release-windows/Sunfleck-SDK-windows-x64.zip
+          if-no-files-found: error
+
+  unix:
+    if: ${{ !github.event.deleted }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux-x64
+          - runner: macos-15
+            platform: macos-arm64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v4
+        env:
+          DOTNET_INSTALL_DIR: ${{ runner.temp }}/sunfleck-dotnet
+        with:
+          dotnet-version: '10.0.x'
+      - name: Install Linux build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libx11-dev libxext-dev libfreetype-dev libharfbuzz-dev libfribidi-dev libatk-bridge2.0-dev
+      - name: Install and validate the SDK
+        shell: bash
+        run: |
+          sdk="$PWD/out/release-native/Sunfleck SDK"
+          consumer="$RUNNER_TEMP/sunfleck-consumer"
+          cmake -S . -B out/release-native/build -G Ninja -DCMAKE_BUILD_TYPE=Release \
+            -DUI_INSTALL_SDK=ON -DUI_BUILD_CSHARP=ON -DUI_BUILD_DEMOS=OFF -DBUILD_TESTING=OFF
+          cmake --build out/release-native/build --target sunfleck fleckc sunfleck_sdk_managed --parallel 2
+          cmake --install out/release-native/build --prefix "$sdk"
+          cp -R "$sdk/share/sunfleck/examples" "$consumer"
+          cmake -S "$consumer" -B "$consumer/build" -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$sdk"
+          cmake --build "$consumer/build" --parallel 2
+          ctest --test-dir "$consumer/build" --output-on-failure
+          dotnet publish "$consumer/Consumer.csproj" -c Release "-p:SunfleckSdkRoot=$sdk" -o "$consumer/publish"
+          dotnet "$consumer/publish/Consumer.dll"
+          tar -czf "out/release-native/Sunfleck-SDK-${{ matrix.platform }}.tar.gz" -C "$sdk" .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdk-${{ matrix.platform }}
+          path: |
+            out/release-native/Sunfleck-SDK-${{ matrix.platform }}.tar.gz
+          if-no-files-found: error
+
+  web:
+    if: ${{ !github.event.deleted }}
+    runs-on: ubuntu-24.04
+    env:
+      EMSDK_VERSION: '3.1.56'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install Emscripten
+        run: |
+          git clone --depth 1 --branch "$EMSDK_VERSION" https://github.com/emscripten-core/emsdk.git "$RUNNER_TEMP/emsdk"
+          "$RUNNER_TEMP/emsdk/emsdk" install "$EMSDK_VERSION"
+          "$RUNNER_TEMP/emsdk/emsdk" activate "$EMSDK_VERSION"
+      - name: Install and validate the Wasm SDK
+        shell: bash
+        run: |
+          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
+          sdk="$PWD/out/release-web/Sunfleck SDK"
+          consumer="$RUNNER_TEMP/sunfleck-web-consumer"
+          cp -R tests/sdk/consumer "$consumer"
+          emcmake cmake -S . -B out/release-web/build -G Ninja -DCMAKE_BUILD_TYPE=Release \
+            -DUI_INSTALL_SDK=ON -DUI_BUILD_TOOLS=OFF -DUI_BUILD_DEMOS=OFF -DBUILD_TESTING=OFF
+          cmake --build out/release-web/build --target sunfleck --parallel 2
+          cmake --install out/release-web/build --prefix "$sdk"
+          emcmake cmake -S "$consumer" -B "$consumer/build" -G Ninja -DCMAKE_BUILD_TYPE=Release \
+            -DSunfleck_DIR="$sdk/lib/cmake/Sunfleck"
+          cmake --build "$consumer/build" --parallel 2
+          ctest --test-dir "$consumer/build" --output-on-failure
+          tar -czf out/release-web/Sunfleck-SDK-web-wasm32.tar.gz -C "$sdk" .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdk-web-wasm32
+          path: out/release-web/Sunfleck-SDK-web-wasm32.tar.gz
+          if-no-files-found: error
+
+  publish:
+    needs: [windows, unix, web]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: sdk-*
+          path: release-assets
+          merge-multiple: true
+      - name: Publish SDKs
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          assets=(
+            release-assets/Sunfleck-SDK-windows-x64.zip
+            release-assets/Sunfleck-SDK-linux-x64.tar.gz
+            release-assets/Sunfleck-SDK-macos-arm64.tar.gz
+            release-assets/Sunfleck-SDK-web-wasm32.tar.gz
+          )
+          for asset in "${assets[@]}"; do
+            test -s "$asset"
+          done
+
+          if gh release view --json isDraft,assets -- "$RELEASE_TAG" > release.json; then
+            for asset in "${assets[@]}"; do
+              if ! jq -e --arg name "${asset##*/}" 'any(.assets[]; .name == $name and .state == "uploaded")' release.json > /dev/null; then
+                gh release upload --clobber -- "$RELEASE_TAG" "$asset"
+              fi
+            done
+            if jq -e '.isDraft' release.json > /dev/null; then
+              gh release edit --draft=false -- "$RELEASE_TAG"
+            fi
+          else
+            gh release create --verify-tag --generate-notes -- "$RELEASE_TAG" "${assets[@]}"
+          fi

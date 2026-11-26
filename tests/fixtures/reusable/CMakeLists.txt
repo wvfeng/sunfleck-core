@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 3.25)
+project(reusable_components LANGUAGES C CXX)
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+  block()
+    set(UI_BUILD_EXAMPLES OFF)
+    set(BUILD_TESTING OFF)
+    add_subdirectory(../../.. sunfleck EXCLUDE_FROM_ALL)
+  endblock()
+  include(../../../build/Sunfleck.Development.cmake)
+endif()
+add_executable(reusable_type_exporter export-types.cpp)
+target_link_libraries(reusable_type_exporter PRIVATE sunfleck)
+sunfleck_add_component_metadata(reusable_types EXPORTER reusable_type_exporter
+  OUTPUT "${CMAKE_BINARY_DIR}/.fleck/types/reusable.fleckcomponents.json")
+sunfleck_component_library(reusable_controls
+  RESOURCE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/controls"
+  TYPES "${CMAKE_BINARY_DIR}/.fleck/types/reusable.fleckcomponents.json")
+sunfleck_component_library(reusable_library COMPONENT_LIBRARIES reusable_controls)
+sunfleck_compile_page(reusable_page INPUT main.fleck OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/page.c"
+  FORMAT c SYMBOL load_reusable COMPONENT_LIBRARIES reusable_library)
+sunfleck_compile_page(reusable_binary INPUT main.fleck OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/page.flkb"
+  FORMAT binary COMPONENT_LIBRARIES reusable_library)
+add_executable(reusable_c c/main.c "${CMAKE_CURRENT_BINARY_DIR}/page.c")
+target_link_libraries(reusable_c PRIVATE sunfleck)
+add_dependencies(reusable_c reusable_page reusable_binary)
+sunfleck_compile_page(reusable_cpp_bindings INPUT main.fleck OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/page.hpp"
+  FORMAT cpp SYMBOL load_reusable COMPONENT_LIBRARIES reusable_library)
+add_executable(reusable_cpp cpp/main.cpp "${CMAKE_CURRENT_BINARY_DIR}/page.c")
+target_link_libraries(reusable_cpp PRIVATE sunfleck)
+add_dependencies(reusable_cpp reusable_page reusable_cpp_bindings)
+target_include_directories(reusable_cpp PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+if(BUILD_TESTING)
+  add_test(NAME reusable_c COMMAND reusable_c --test "${CMAKE_CURRENT_BINARY_DIR}/page.c.fleckmap")
+  add_test(NAME reusable_binary_map COMMAND reusable_c --test "${CMAKE_CURRENT_BINARY_DIR}/page.flkb" "${CMAKE_CURRENT_BINARY_DIR}/page.flkb.fleckmap")
+  add_test(NAME reusable_cpp COMMAND reusable_cpp --test)
+endif()

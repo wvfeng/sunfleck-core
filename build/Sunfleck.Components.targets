@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath Condition="'$(CompilerGeneratedFilesOutputPath)' == ''">$(MSBuildProjectDirectory)/obj/$(Configuration)/$(TargetFramework)/fleck-generated</CompilerGeneratedFilesOutputPath>
+    <SunfleckComponentGeneratorProject Condition="'$(SunfleckComponentGeneratorProject)' == ''">$(MSBuildThisFileDirectory)../tools/component-generator/Sunfleck.ComponentGenerator.csproj</SunfleckComponentGeneratorProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <CompilerVisibleProperty Include="CompilerGeneratedFilesOutputPath" />
+    <AdditionalFiles Include="$(MSBuildProjectDirectory)/**/*.fleck" Exclude="$(MSBuildProjectDirectory)/bin/**;$(MSBuildProjectDirectory)/obj/**" />
+    <Analyzer Include="$(SunfleckComponentGeneratorAssembly)" Condition="'$(SunfleckComponentGeneratorAssembly)' != ''" />
+    <ProjectReference Condition="'$(SunfleckComponentGeneratorAssembly)' == ''" Include="$(SunfleckComponentGeneratorProject)" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <Target Name="SunfleckExportComponents" AfterTargets="Build">
+    <MSBuild Projects="$(SunfleckComponentGeneratorProject)" Targets="GetTargetPath" Properties="Configuration=$(Configuration)" Condition="'$(SunfleckComponentGeneratorAssembly)' == ''">
+      <Output TaskParameter="TargetOutputs" ItemName="_SunfleckComponentGeneratorOutput" />
+    </MSBuild>
+    <PropertyGroup>
+      <_SunfleckComponentExporter Condition="'$(SunfleckComponentGeneratorAssembly)' != ''">$(SunfleckComponentGeneratorAssembly)</_SunfleckComponentExporter>
+      <_SunfleckComponentExporter Condition="'$(_SunfleckComponentExporter)' == ''">@(_SunfleckComponentGeneratorOutput)</_SunfleckComponentExporter>
+    </PropertyGroup>
+    <Exec Command="dotnet &quot;$(_SunfleckComponentExporter)&quot; export &quot;$(TargetPath)&quot; &quot;$(TargetDir)$(AssemblyName).fleckcomponents.json&quot;" />
+    <ItemGroup><FileWrites Include="$(TargetDir)$(AssemblyName).fleckcomponents.json" /></ItemGroup>
+  </Target>
+</Project>

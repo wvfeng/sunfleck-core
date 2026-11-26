@@ -1,0 +1,10 @@
+<Window xmlns="urn:sunfleck:v1" xmlns:controls="urn:example:controls"
+        Model="MainModel" Title="Reusable Fleck components" Width="480" Height="500">
+  <StackPanel Padding="20" Spacing="12">
+    <controls:UserCard Id="primary" DataContext="{Binding PrimaryUser}"/>
+    <controls:UserCard Id="secondary" DataContext="{Binding SecondaryUser}"/>
+    <controls:Rating Id="rating" Value="{Binding Score, Mode=TwoWay}"/>
+    <TextBlock Id="score" IsEnabled="{Binding IsEnabled, ElementName=rating}" Text="{Binding Score, StringFormat='Score: {0}'}"/>
+    <Button Template="controls:ScoreButton" Content="{Binding Score, StringFormat='Rating: {0}'}"/>
+  </StackPanel>
+</Window>

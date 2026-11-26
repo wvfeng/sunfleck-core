@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "构建计数器",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/Counter.csproj", "-p:SunfleckWindowsWatch=false"],
+      "problemMatcher": "$msCompile",
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "C# 热重载",
+      "type": "process",
+      "command": "pwsh",
+      "args": ["-NoProfile", "-File", "${workspaceFolder}/start.ps1", "-Action", "Watch"],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

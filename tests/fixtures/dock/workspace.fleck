@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window xmlns="urn:sunfleck:v1" Title="Sunfleck Dock Workspace" Width="1100" Height="760">
+  <DockPanel Spacing="8" Padding="4">
+    <StackPanel Dock="Top" Spacing="6">
+      <ToolBar Spacing="6">
+        <Label Text="Dock Workspace" MinWidth="140"/>
+        <ComboBox Id="theme" Width="200" Weight="0"><ListItem Text="Fluent 2"/><ListItem Text="Material 3"/><ListItem Text="Radix Themes"/><ListItem Text="Apple Liquid Glass"/><ListItem Text="Sunfleck Lite"/></ComboBox>
+        <Switch Id="dark" Text="Dark" Width="106" Weight="0"/>
+        <Switch Id="compact" Text="Compact" Value="1" Width="134" Weight="0"/>
+        <CheckBox Id="protect" Text="Protect Editor A" Value="1" Width="180" Weight="0"/>
+      </ToolBar>
+      <ToolBar Spacing="6">
+        <Button Id="float_tab" Content="Float tab" Width="112" Weight="0"/>
+        <Button Id="float_group" Content="Float group" Width="112" Weight="0"/>
+        <Button Id="auto_hide" Content="Auto hide" Width="112" Weight="0"/>
+        <Button Id="show_tools" Content="Show tools" Width="112" Weight="0"/>
+        <Label/>
+        <Button Id="save" Content="Save layout" Width="112" Weight="0"/>
+        <Button Id="load" Content="Load layout" Width="112" Weight="0"/>
+        <Button Id="reset" Content="Reset layout" Width="112" Weight="0"/>
+      </ToolBar>
+    </StackPanel>
+    <Label Id="status" Dock="Bottom" Text="Ready · Drag tabs to dock, drag outside to float. Esc cancels."/>
+    <DockHost Id="workspace">
+      <DockSplit Orientation="Horizontal" Ratio="24">
+        <DockGroup><DockTool Id="explorer" Title="Explorer" MinWidth="160"><TextBlock Text="Sunfleck&#10;&#10;  src&#10;    main.cpp&#10;&#10;  docs&#10;    notes.md"/></DockTool></DockGroup>
+        <DockSplit Orientation="Vertical" Ratio="78">
+          <DockGroup>
+            <DockDocument Id="editor_a" Title="Editor A" MinWidth="240"><TextArea Id="editor" Text="Edit this document, then float or move its tab.&#10;&#10;The same content node keeps its text and binding across windows."/></DockDocument>
+            <DockDocument Id="editor_b" Title="Editor B"><TextArea Text="A second document. Float group moves both tabs together."/></DockDocument>
+          </DockGroup>
+          <DockGroup><DockTool Id="output" Title="Output"><TextBlock Text="Build completed successfully.&#10;0 errors · 0 warnings"/></DockTool></DockGroup>
+        </DockSplit>
+      </DockSplit>
+    </DockHost>
+  </DockPanel>
+</Window>

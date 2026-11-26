@@ -1,0 +1,9 @@
+<UserControl xmlns="urn:sunfleck:v1" Class="Example.UserCard" Namespace="urn:example:controls">
+  <Card Padding="12">
+    <StackPanel Spacing="8">
+      <TextBlock Id="name" Text="{Binding Name}"/>
+      <TextBox Id="notes" Text="Independent instance notes"/>
+      <Label Text="Notes" Anchor="notes"/>
+    </StackPanel>
+  </Card>
+</UserControl>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <SunfleckDevelopmentTool>$(MSBuildThisFileDirectory)../../../../../out/windows-dev/service/Sunfleck.Development.dll</SunfleckDevelopmentTool>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(SunfleckWindowsWatch)' == 'true'">
+    <DebugType>embedded</DebugType>
+    <OutputPath>bin/Watch/</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../../../bindings/csharp/Sunfleck.csproj"/>
+    <None Include="../../../../../out/windows-dev/native/sunfleck_native.dll" Link="sunfleck_native.dll" CopyToOutputDirectory="PreserveNewest"/>
+    <None Update="main.fleck" Watch="false"/>
+    <SunfleckModel Include="CounterModel"/>
+  </ItemGroup>
+  <Import Project="../../../../../build/Sunfleck.Development.targets"/>
+</Project>

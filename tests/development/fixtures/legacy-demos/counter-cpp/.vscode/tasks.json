@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [{
+    "label": "构建 C++ 计数器",
+    "type": "process",
+    "command": "pwsh",
+    "args": ["-NoProfile", "-File", "${workspaceFolder}/start.ps1", "-Action", "Build"],
+    "problemMatcher": "$msCompile",
+    "group": { "kind": "build", "isDefault": true }
+  }, {
+    "label": "验证 C++ 计数器",
+    "type": "process",
+    "command": "pwsh",
+    "args": ["-NoProfile", "-File", "${workspaceFolder}/start.ps1", "-Action", "Test"],
+    "problemMatcher": "$msCompile"
+  }]
+}
