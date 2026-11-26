@@ -6,6 +6,7 @@ param(
     [string]$BuildDirectory,
     [string]$CppProject,
     [string]$DotnetProject,
+    [ValidateSet('Debug', 'Release')][string]$Configuration = 'Release',
     [switch]$Publish
 )
 $ErrorActionPreference = 'Stop'
@@ -23,7 +24,7 @@ foreach ($name in $names) { $saved[$name] = [Environment]::GetEnvironmentVariabl
 Push-Location $root
 try {
     $env:PYTHONUTF8 = '1'
-    $common = @('-G', 'Ninja', '-DCMAKE_BUILD_TYPE=Release', '-DBUILD_TESTING=OFF', '-DUI_BUILD_TOOLS=OFF',
+    $common = @('-G', 'Ninja', '-DBUILD_TESTING=OFF', '-DUI_BUILD_TOOLS=OFF',
         '-DUI_BUILD_EXAMPLES=OFF', '-DUI_BUILD_DEMOS=OFF', '-DUI_BUILD_CSHARP=OFF')
     if ($Target -eq 'Cpp') {
         if (!$EmsdkRoot) { throw 'Specify -EmsdkRoot for an installed and activated Emscripten SDK.' }
@@ -34,7 +35,7 @@ try {
         $source = if ($CppProject) { (Resolve-Path -LiteralPath $CppProject).Path } else { $root }
         Invoke-Checked cmake (@('-S', $source, '-B', $output,
             "-DCMAKE_TOOLCHAIN_FILE=$emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake",
-            '-DUI_BUILD_WEB=ON', "-DUI_WEB_FONT=$fontPath") + $common)
+            '-DUI_BUILD_WEB=ON', "-DUI_WEB_FONT=$fontPath") + $common + "-DCMAKE_BUILD_TYPE=$Configuration")
         Invoke-Checked cmake @('--build', $output, '-j', '4')
         foreach ($obsolete in @('font.ttf', 'font.ttf.gz', 'font.ttf.br')) {
             $obsoleteFont = Join-Path $output "web/$obsolete"
@@ -73,7 +74,7 @@ try {
         if ($BuildDirectory) { $output = $BuildDirectory }
         Invoke-Checked cmake (@('-S', $root, '-B', $output,
             "-DCMAKE_TOOLCHAIN_FILE=$sdk/emscripten/cmake/Modules/Platform/Emscripten.cmake",
-            '-DUI_WASM_NATIVE_EXCEPTIONS=ON') + $common)
+            '-DUI_WASM_NATIVE_EXCEPTIONS=ON', '-DCMAKE_BUILD_TYPE=Release') + $common)
         Invoke-Checked cmake @('--build', $output, '-j', '4')
         Copy-Item -LiteralPath "$output/libsunfleck.a" -Destination "$output/sunfleck_native.a"
         $verb = if ($Publish) { 'publish' } else { 'build' }
@@ -82,12 +83,12 @@ try {
         if ($Publish) {
             # Publishing over an existing directory retains obsolete hashed Wasm
             # assets. Build a complete fresh tree before replacing the old one.
-            $publishParent = [IO.Path]::GetFullPath((Join-Path $projectRoot 'bin/Release/net10.0'))
+            $publishParent = [IO.Path]::GetFullPath((Join-Path $projectRoot "bin/$Configuration/net10.0"))
             $publishRoot = Join-Path $publishParent 'publish'
             $publishStage = Join-Path $publishParent ('.publish-stage-' + [guid]::NewGuid().ToString('N'))
             $publishArguments = @('--output', $publishStage)
         }
-        Invoke-Checked $Dotnet (@($verb, $project, '-c', 'Release', '--nologo',
+        Invoke-Checked $Dotnet (@($verb, $project, '-c', $Configuration, '--nologo',
             '-p:Platform=AnyCPU', '-p:PlatformTarget=AnyCPU',
             "-p:SunfleckWebFont=$fontPath", "-p:SunfleckNativeLibrary=$output/sunfleck_native.a",
             "-p:SunfleckBidiLicense=$output/SheenBidi-LICENSE.txt",
@@ -109,7 +110,7 @@ try {
                 throw
             }
         }
-        $site = if ($Publish) { "$projectRoot/bin/Release/net10.0/publish/wwwroot" } else { "$projectRoot/bin/Release/net10.0/wwwroot" }
+        $site = if ($Publish) { "$projectRoot/bin/$Configuration/net10.0/publish/wwwroot" } else { "$projectRoot/bin/$Configuration/net10.0/wwwroot" }
         Write-Host "Serve $site with an HTTP server."
     }
 } finally {

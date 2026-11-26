@@ -1,4 +1,5 @@
 include_guard(GLOBAL)
+include("${CMAKE_CURRENT_LIST_DIR}/SunfleckWebInspector.cmake")
 set(SUNFLECK_WEB_ASSETS "${CMAKE_CURRENT_LIST_DIR}")
 
 # Consume the shared host from an application outside the framework checkout.
@@ -9,6 +10,7 @@ function(sunfleck_add_web_app target)
   endif()
   add_executable(${target} "${APP_SOURCE}")
   target_link_libraries(${target} PRIVATE sunfleck)
+  sunfleck_enable_web_inspector(${target} "${CMAKE_BINARY_DIR}/web")
   set_target_properties(${target} PROPERTIES OUTPUT_NAME sunfleck SUFFIX .js
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/web")
   target_link_options(${target} PRIVATE

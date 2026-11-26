@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants Condition="'$(Configuration)' == 'Debug'">$(DefineConstants);SUNFLECK_WEB_DEBUG</DefineConstants>
     <WasmBuildNative>true</WasmBuildNative>
     <!-- The core and host must use the same exception-handling ABI. -->
     <WasmEnableExceptionHandling>true</WasmEnableExceptionHandling>
@@ -18,6 +19,7 @@
     <NativeFileReference Include="$(SunfleckNativeLibrary)" />
     <Content Include="main.js" Link="wwwroot/main.js" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../../web/index.html" Link="wwwroot/index.html" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../inspector.js" Condition="'$(Configuration)' == 'Debug'" Link="wwwroot/inspector.js" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../../web/host.js" Link="wwwroot/host.js" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../../web/renderer.js" Link="wwwroot/renderer.js" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../../web/text-input.js" Link="wwwroot/text-input.js" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />

@@ -21,6 +21,9 @@ public sealed class HostedSurface
         => SunfleckException.Check(Native.HostResize(app.Handle, width, height, dpi));
     public void Pointer(PointerAction action, int x, int y)
         => SunfleckException.Check(Native.HostPointer(app.Handle, action, x, y));
+    /// <summary>Inspects a view at a device-pixel position while debug picking is active.</summary>
+    public Result DebugPointer(uint view, PointerAction action, int x, int y)
+        => Native.HostDebugPointer(app.Handle, view, action, x, y);
     public void Key(HostedKey key, bool shift = false)
         => SunfleckException.Check(Native.HostKey(app.Handle, key, shift ? 1u : 0u));
     public void Focus(bool focused)
@@ -140,6 +143,8 @@ internal static partial class Native
     internal static extern Result HostResize(nint app, uint width, uint height, uint dpi);
     [DllImport(Library, EntryPoint = "ui_host_pointer", CallingConvention = CallingConvention.Cdecl)]
     internal static extern Result HostPointer(nint app, PointerAction action, int x, int y);
+    [DllImport(Library, EntryPoint = "ui_host_debug_pointer", CallingConvention = CallingConvention.Cdecl)]
+    internal static extern Result HostDebugPointer(nint app, uint view, PointerAction action, int x, int y);
     [DllImport(Library, EntryPoint = "ui_host_key_event", CallingConvention = CallingConvention.Cdecl)]
     internal static extern Result HostKey(nint app, HostedKey key, uint shift);
     [DllImport(Library, EntryPoint = "ui_host_focus", CallingConvention = CallingConvention.Cdecl)]

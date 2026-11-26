@@ -20,6 +20,9 @@ try {
   app.Start(font, page, new URL('.', location.href).href);
   if (new URL(location.href).searchParams.has('verify')) { app.VerifyContracts(); document.body.dataset.contracts = 'passed'; }
   const host = attachHost(document.querySelector('canvas'), {
+    inspector: app.DebugSnapshot && {
+      snapshot: app.DebugSnapshot, highlight: app.DebugHighlight, pick: app.DebugPick, pointer: app.DebugPointer,
+    },
     setRenderMode: app.SetRenderMode, commands: app.DrawCommands,
     selectView: app.SelectView, snapshot: () => JSON.parse(app.Snapshot()), semanticAction: app.SemanticAction,
     resize: app.Resize, pointer: app.Pointer, key: app.Key, focus: app.Focus,

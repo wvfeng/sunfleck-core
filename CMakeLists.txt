@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(Sunfleck VERSION 1.0.0 LANGUAGES C CXX)
+project(Sunfleck VERSION 1.0.1 LANGUAGES C CXX)
 include(build/Sunfleck.MsvcDependencies.cmake)
 include(build/Sunfleck.Development.cmake)
 set(CMAKE_C_STANDARD 11)

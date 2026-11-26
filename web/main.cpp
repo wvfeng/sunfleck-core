@@ -1,4 +1,5 @@
 #include <sunfleck/ui.h>
+#include <sunfleck/web_inspector.h>
 #include <emscripten.h>
 #include <cstdio>
 #include <cstdlib>
@@ -95,6 +96,7 @@ EMSCRIPTEN_KEEPALIVE int sf_start(const char* page_override)
     }
     if (status == UI_OK) { status = ui_app_open_window(app); }
     if (status != UI_OK) { ui_app_destroy(app); app = nullptr; text = nullptr; }
+    sunfleck_web_debug_bind(app);
     return status;
 }
 EMSCRIPTEN_KEEPALIVE int sf_tick() { return ui_app_poll(app, 0); }
@@ -171,5 +173,13 @@ EMSCRIPTEN_KEEPALIVE const char* sf_text_read()
     return text_state_json.c_str();
 }
 EMSCRIPTEN_KEEPALIVE unsigned sf_count() { return count; }
-EMSCRIPTEN_KEEPALIVE void sf_stop() { if (app) { ui_app_destroy(app); app = nullptr; text = nullptr; } }
+EMSCRIPTEN_KEEPALIVE void sf_stop()
+{
+    if (app) {
+        sunfleck_web_debug_bind(nullptr);
+        ui_app_destroy(app);
+        app = nullptr;
+        text = nullptr;
+    }
+}
 }

@@ -73,6 +73,16 @@ int main()
     REQUIRE(dimensions(800, 600));
     uint64_t id = 0;
     REQUIRE(ui_node_get_debug_id(editor, &id) == UI_OK);
+    REQUIRE(ui_host_select_view(app, 0) == UI_OK);
+    REQUIRE(ui_app_set_debug_picking(app, 1) == UI_OK);
+    REQUIRE(ui_host_debug_pointer(app, view, UI_POINTER_MOVE, 60, 200) == UI_OK);
+    REQUIRE(ui_host_debug_pointer(app, view, UI_POINTER_UP, 60, 200) == UI_OK);
+    size_t debug_size = 0;
+    REQUIRE(ui_app_get_debug_snapshot(app, nullptr, &debug_size) == UI_OK);
+    std::string debug_snapshot(debug_size, '\0');
+    REQUIRE(ui_app_get_debug_snapshot(app, debug_snapshot.data(), &debug_size) == UI_OK);
+    REQUIRE(debug_snapshot.find("\"selection\":\"" + std::to_string(id) + "\",\"picking\":false") != std::string::npos);
+    REQUIRE(ui_host_select_view(app, view) == UI_OK);
     REQUIRE(ui_host_semantic_action(app, id, 0) == UI_OK);
     ui_host_text_state state{}; state.struct_size = sizeof(state); state.version = 1;
     REQUIRE(ui_host_text_read(app, &state) == UI_OK && state.active);

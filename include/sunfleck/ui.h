@@ -907,6 +907,9 @@ ui_result ui_dock_pointer(ui_dock* dock, uint32_t window_id, ui_pointer_action a
    A completed down/up gesture activates at most once; cancel never activates. */
 ui_result ui_host_resize(ui_app* app, uint32_t width, uint32_t height, uint32_t dpi);
 ui_result ui_host_pointer(ui_app* app, ui_pointer_action action, int32_t x, int32_t y);
+/* While debug picking is active, inspect the rendered view without invoking controls.
+ * MOVE previews a device-pixel location, UP selects it and CANCEL ends picking. */
+ui_result ui_host_debug_pointer(ui_app* app, uint32_t view, ui_pointer_action action, int32_t x, int32_t y);
 /* Vertical scroll delta in device pixels; bubbles from inner to outer scroll containers. */
 ui_result ui_host_scroll(ui_app* app, int32_t x, int32_t y, int32_t dy);
 ui_result ui_host_context_menu(ui_app* app, int32_t x, int32_t y);

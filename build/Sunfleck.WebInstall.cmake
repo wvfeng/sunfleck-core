@@ -15,6 +15,8 @@ install(FILES "${PROJECT_BINARY_DIR}/SunfleckConfig.cmake"
   "${PROJECT_SOURCE_DIR}/build/Sunfleck.Development.cmake"
   "${PROJECT_SOURCE_DIR}/build/Sunfleck.MsvcDependencies.cmake" DESTINATION "${sunfleck_cmake_dir}")
 install(FILES "${PROJECT_SOURCE_DIR}/web/host.js" "${PROJECT_SOURCE_DIR}/web/renderer.js"
-  "${PROJECT_SOURCE_DIR}/web/text-input.js" "${PROJECT_BINARY_DIR}/SheenBidi-LICENSE.txt"
+  "${PROJECT_SOURCE_DIR}/web/text-input.js" "${PROJECT_SOURCE_DIR}/web/inspector.js"
+  "${PROJECT_SOURCE_DIR}/web/inspector-exports.cpp" "${PROJECT_SOURCE_DIR}/web/SunfleckWebInspector.cmake"
+  "${PROJECT_SOURCE_DIR}/web/preview.py" "${PROJECT_BINARY_DIR}/SheenBidi-LICENSE.txt"
   DESTINATION "${sunfleck_web_dir}")
 install(FILES "${PROJECT_SOURCE_DIR}/LICENSE" DESTINATION "${sunfleck_web_dir}" RENAME Sunfleck-LICENSE.txt)

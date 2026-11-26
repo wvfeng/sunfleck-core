@@ -44,6 +44,22 @@ export async function loadHostedFont(source) {
   }
 }
 
+function wasmInspector(module) {
+  if (!module?._sunfleck_web_debug_snapshot) return;
+  return {
+    snapshot: () => {
+      const pointer = module._sunfleck_web_debug_snapshot();
+      return pointer ? module.UTF8ToString(pointer) : '';
+    },
+    highlight: id => {
+      const object = BigInt(id);
+      return module._sunfleck_web_debug_highlight(Number(object & 0xffffffffn), Number(object >> 32n));
+    },
+    pick: enabled => module._sunfleck_web_debug_pick(Number(enabled)),
+    pointer: (view, action, x, y) => module._sunfleck_web_debug_pointer(view, action, x, y),
+  };
+}
+
 export function attachHost(canvas, backend, viewId = 0, rendererMode = new URL(location.href).searchParams.get('renderer') || 'auto') {
   traceInput(canvas);
   let lastFrame = -1, layoutChanged = true, lastDpi = 0;
@@ -65,6 +81,19 @@ export function attachHost(canvas, backend, viewId = 0, rendererMode = new URL(l
       return result;
     };
   } });
+  const inspector = viewId ? undefined : backend.inspector ?? wasmInspector(backend.wasmModule);
+  let closeInspector;
+  if (inspector && location.protocol === 'http:' && location.hostname === '127.0.0.1' &&
+      new URL(location.href).searchParams.get('sunfleckInspector') === '1') {
+    backend.inspectorSurfaces = new Map();
+    void import('./inspector.js').then(({ startInspector }) => {
+      if (!closed) closeInspector = startInspector(new URL(location.href), inspector, backend.inspectorSurfaces);
+    }).catch(error => console.error('Sunfleck Inspector', error));
+  }
+  if (backend.inspectorSurfaces) {
+    backend.inspectorSurfaces.set(canvas, viewId);
+    canvas.style.cursor = 'var(--sunfleck-pick-cursor, auto)';
+  }
   const children = new Map();
   const semanticNodes = new Map();
   const semanticGroups = new Map();
@@ -333,6 +362,8 @@ export function attachHost(canvas, backend, viewId = 0, rendererMode = new URL(l
   function close() {
     if (closed) return;
     closed = true; events.abort(); clearInterval(timer); cancelAnimationFrame(frame);
+    closeInspector?.();
+    backend.inspectorSurfaces?.delete(canvas);
     for (const child of children.values()) { child.host.close(); child.canvas.remove(); }
     children.clear(); semantics.remove(); text.close(); renderer.close(); runtime.stop();
     if (!viewId) document.querySelector('#status').textContent = 'Closed';

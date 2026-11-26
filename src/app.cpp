@@ -7853,11 +7853,13 @@ ui_result ui_app_set_debug_highlight(ui_app* app, uint64_t id, uint32_t lease_ms
 ui_result ui_app_set_debug_picking(ui_app* app, uint32_t enabled)
 {
     if (const auto status = check(app); status != UI_OK) { return status; }
-#ifdef _WIN32
-    if (enabled > 1 || app->headless) { return UI_ERROR_INVALID_ARGUMENT; }
+#ifndef _WIN32
+    if (!app->headless) { return UI_ERROR_UNSUPPORTED; }
+#endif
+    if (enabled > 1) { return UI_ERROR_INVALID_ARGUMENT; }
     const auto busy = [](const ui_window_context& window) {
         return window.dragged_control || window.pressed_control || window.native_dock_move || window.ime_composing ||
-            window.chrome_pressed != UI_DOCK_PART_COUNT;
+            window.host_pointer_down || window.hosted_window.drag || window.chrome_pressed != UI_DOCK_PART_COUNT;
     };
     if (enabled) {
         bool available = false, blocked = false;
@@ -7888,10 +7890,6 @@ ui_result ui_app_set_debug_picking(ui_app* app, uint32_t enabled)
         }
     });
     return UI_OK;
-#else
-    (void)enabled;
-    return UI_ERROR_UNSUPPORTED;
-#endif
 }
 
 static ui_result debug_snapshot_json(ui_app* app, std::string& output)
@@ -8478,6 +8476,39 @@ ui_result ui_host_set_font(const void* bytes, size_t size)
     (void)bytes; (void)size;
     return UI_ERROR_UNSUPPORTED;
 #endif
+}
+
+ui_result ui_host_debug_pointer(ui_app* app, uint32_t view_id, ui_pointer_action action, int32_t x, int32_t y)
+{
+    if (const auto status = check_host(app); status != UI_OK) { return status; }
+    if (!app->debug_picking) { return UI_ERROR_INVALID_STATE; }
+    auto* target = find_window(*app, view_id);
+    if (!target) { return UI_ERROR_INVALID_ARGUMENT; }
+    WindowScope view(*app, target == app ? app->current : target);
+    try {
+        if (action == UI_POINTER_CANCEL) { return ui_app_set_debug_picking(app, 0); }
+        if (action != UI_POINTER_MOVE && action != UI_POINTER_UP) { return UI_ERROR_INVALID_ARGUMENT; }
+        if (app->dirty && !app->render(false)) { return UI_ERROR_PLATFORM; }
+        if (action == UI_POINTER_UP) {
+            app->debug_selection = app->debug_hit(x, y);
+            return ui_app_set_debug_picking(app, 0);
+        }
+        // A highlighted node in a different hosted view must disappear when crossing canvases.
+        const auto clear_hover = [&](ui_window_context& window) {
+            if (&window != app->current && window.debug_hover) {
+                window.debug_hover = 0;
+                window.dirty = true;
+            }
+        };
+        clear_hover(*app->main_state);
+        for (auto& [id, window] : app->dock_windows) {
+            (void)id;
+            clear_hover(*window);
+        }
+        app->update_debug_hover(x, y);
+        return UI_OK;
+    } catch (const std::bad_alloc&) { return UI_ERROR_OUT_OF_MEMORY; }
+      catch (...) { return UI_ERROR_INVALID_STATE; }
 }
 
 ui_result ui_host_pointer(ui_app* app, ui_pointer_action action, int32_t x, int32_t y)

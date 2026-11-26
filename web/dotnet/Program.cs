@@ -102,6 +102,44 @@ public static partial class BrowserApp
     }
     [JSExport] public static int SelectView(int id) { surface!.SelectView((uint)id); return 0; }
     [JSExport] public static string Snapshot() => surface!.Snapshot();
+#if SUNFLECK_WEB_DEBUG
+    [JSExport] public static string DebugSnapshot() => app?.GetDebugSnapshot() ?? "";
+
+    [JSExport]
+    public static int DebugHighlight(string id)
+    {
+        return DebugCommand(() => app!.SetDebugHighlight(ulong.Parse(id, System.Globalization.CultureInfo.InvariantCulture), 500));
+    }
+
+    [JSExport]
+    public static int DebugPick(bool enabled)
+    {
+        return DebugCommand(() => app!.SetDebugPicking(enabled));
+    }
+
+    [JSExport]
+    public static int DebugPointer(int view, int action, int x, int y)
+    {
+        return (int)(surface?.DebugPointer((uint)view, (PointerAction)action, x, y) ?? Result.InvalidState);
+    }
+
+    private static int DebugCommand(Action command)
+    {
+        if (app is null)
+        {
+            return (int)Result.InvalidState;
+        }
+        try
+        {
+            command();
+            return 0;
+        }
+        catch (SunfleckException error)
+        {
+            return (int)error.Result;
+        }
+    }
+#endif
     [JSExport] public static int SemanticAction(string id, int action) { surface!.SemanticAction(ulong.Parse(id), action != 0); return 0; }
     [JSExport] public static int Tick() => (int)app!.Poll(0);
     [JSExport] public static int SetRenderMode(int mode) { surface!.SetCommandRendering(mode != 0); return 0; }

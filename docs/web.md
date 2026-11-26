@@ -43,9 +43,19 @@
 - `ui_host_text_read/update`：带会话、版本、UTF-16 选区和设备像素几何的文本编辑协议。
 - `ui_host_text_preview/hit_test/scroll`：独立组合输入草稿、核心字符命中和编辑区域滚动；与提交接口使用相同会话及版本校验。
 
-C# 当前浏览器验证范围包括 `App`、`TextSource`、`FleckDataContext`、同步/异步 Command、`InvokeAsync`、`HostedSurface`、节点 Action、属性模型 getter/setter、Dock 事件和自定义皮肤回调。原生反向回调使用顶层类型上的 `UnmanagedCallersOnly` 静态入口及 GCHandle 上下文；普通闭包由上下文保活。裁剪发布使用 `CreatePropertyModel<T>` 的保留标注或显式 `Add<T>` 注册。此范围不等于全部桌面 C# API 对等支持：独立原生窗口不支持，桌面窗口/诊断与开发工具接口未纳入 Web 验收承诺。
+C# 当前浏览器验证范围包括 `App`、`TextSource`、`FleckDataContext`、同步/异步 Command、`InvokeAsync`、`HostedSurface`、节点 Action、属性模型 getter/setter、Dock 事件和自定义皮肤回调。原生反向回调使用顶层类型上的 `UnmanagedCallersOnly` 静态入口及 GCHandle 上下文；普通闭包由上下文保活。裁剪发布使用 `CreatePropertyModel<T>` 的保留标注或显式 `Add<T>` 注册。此范围不等于全部桌面 C# API 对等支持：独立原生窗口和桌面专用诊断接口仍受浏览器宿主限制。
 
 `app.cpp` 目前仍保存主要窗口和输入状态。`web/host.js` 分离浏览器平台和调度职责；`src/input/hosted_text.*` 提取编辑会话、版本和 UTF-8/UTF-16/平台 wchar_t 转换；`src/input/hosted_window.h` 管理浮窗正常尺寸、最小化高度、拖动起点及 DPI 缩放。全面提取共享状态、输入分发与平台实现仍未完成。
+
+## Web 检查器
+
+Wasm SDK 提供对象树、属性快照、高亮和拾取。Core 使用实际绘制顺序、裁剪和变换命中画布元素。共享宿主处理浏览器事件和本机 HTTP 通信，支持主画布和浮动 Dock 视图。
+
+Emscripten 项目通过 `find_package(Sunfleck CONFIG REQUIRED)` 加载 SDK 后，对应用目标调用 `sunfleck_enable_web_inspector(目标 Web输出目录)`。创建或替换应用后使用 `<sunfleck/web_inspector.h>` 中的 `sunfleck_web_debug_bind(app)` 注册实例，销毁前绑定空指针。使用 `attachHost` 时将 Emscripten 模块作为 `wasmModule` 传给宿主。使用 Core 中 `sunfleck_add_web_app` 的示例已启用这个构建入口。
+
+.NET Wasm 宿主可通过 Debug 配置的 JS 导出调用 `App.GetDebugSnapshot`、`App.SetDebugHighlight`、`App.SetDebugPicking` 和 `HostedSurface.DebugPointer`，并通过 `backend.inspector` 交给共享宿主。Core 自带的 .NET Wasm 示例包含对应接法。C++ 和 .NET 示例的构建脚本均可用 `-Configuration Debug` 启用检查器。
+
+用 SDK 的 `share/sunfleck/web/preview.py` 启动预览，`--directory` 指向 Web 输出目录。可用 `--port` 指定端口，用 `--open-inspector` 打开调试页面。浏览器页面须为 `http://127.0.0.1`，并带 `?sunfleckInspector=1`。VS Code 与 Visual Studio 沿用现有快照连接，Visual Studio 工程可通过 `sunfleck-inspector.json` 配置地址。Debug 构建包含桥接导出，Release 构建不启用。
 
 ## DOM 编辑会话
 

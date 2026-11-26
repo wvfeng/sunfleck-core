@@ -1,5 +1,6 @@
 #include <sunfleck/ui.h>
 #include <cstdio>
+#include <string>
 #include <thread>
 #include <vector>
 
@@ -54,8 +55,25 @@ int main()
     REQUIRE(ui_host_draw_commands(app, &commands, &bytes) == UI_ERROR_INVALID_STATE);
     REQUIRE(ui_host_pointer(app, UI_POINTER_UP, 60, 35) == UI_OK);
     REQUIRE(state.starts == 0);
+    REQUIRE(ui_host_debug_pointer(app, 0, UI_POINTER_MOVE, 60, 35) == UI_ERROR_INVALID_STATE);
     REQUIRE(ui_host_pointer(app, UI_POINTER_DOWN, 60, 35) == UI_OK);
+    REQUIRE(ui_app_set_debug_picking(app, 1) == UI_ERROR_INVALID_STATE);
     REQUIRE(ui_host_pointer(app, UI_POINTER_CANCEL, 0, 0) == UI_OK);
+    REQUIRE(ui_app_set_debug_picking(app, 1) == UI_OK);
+    REQUIRE(ui_host_debug_pointer(app, 1, UI_POINTER_MOVE, 60, 35) == UI_ERROR_INVALID_ARGUMENT);
+    REQUIRE(ui_host_debug_pointer(app, 0, UI_POINTER_MOVE, 60, 35) == UI_OK);
+    REQUIRE(ui_host_debug_pointer(app, 0, UI_POINTER_UP, 60, 35) == UI_OK);
+    uint64_t button_id = 0;
+    REQUIRE(ui_node_get_debug_id(button, &button_id) == UI_OK && button_id);
+    size_t debug_size = 0;
+    REQUIRE(ui_app_get_debug_snapshot(app, nullptr, &debug_size) == UI_OK);
+    std::string snapshot(debug_size, '\0');
+    REQUIRE(ui_app_get_debug_snapshot(app, snapshot.data(), &debug_size) == UI_OK);
+    REQUIRE(snapshot.find("\"selection\":\"" + std::to_string(button_id) + "\",\"picking\":false") != std::string::npos);
+    REQUIRE(state.starts == 0);
+    REQUIRE(ui_app_set_debug_picking(app, 1) == UI_OK);
+    REQUIRE(ui_host_debug_pointer(app, 0, UI_POINTER_CANCEL, 0, 0) == UI_OK);
+    REQUIRE(ui_host_debug_pointer(app, 0, UI_POINTER_UP, 60, 35) == UI_ERROR_INVALID_STATE);
     REQUIRE(ui_host_pointer(app, UI_POINTER_UP, 60, 35) == UI_OK);
     REQUIRE(state.starts == 0);
     REQUIRE(ui_host_pointer(app, UI_POINTER_DOWN, 60, 35) == UI_OK);

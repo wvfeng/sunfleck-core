@@ -32,6 +32,7 @@ try {
     document.body.dataset.contracts = 'passed';
   }
   const host = attachHost(document.querySelector('canvas'), {
+    wasmModule: module,
     setRenderMode: mode => module._sf_render_mode(mode),
     commands: () => {
       const sizePointer = module._sf_alloc(4);
